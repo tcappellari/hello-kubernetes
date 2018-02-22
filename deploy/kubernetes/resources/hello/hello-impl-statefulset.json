@@ -18,7 +18,7 @@
           {
             "name": "hello",
             "image": "hello/hello-impl",
-            "imagePullPolicy": "Always",
+            "imagePullPolicy": "Never",
             "resources": {
               "requests": {
                 "memory": "512Mi"
