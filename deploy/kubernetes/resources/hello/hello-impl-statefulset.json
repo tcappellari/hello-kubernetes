@@ -1,0 +1,84 @@
+{
+  "apiVersion": "apps/v1beta1",
+  "kind": "StatefulSet",
+  "metadata": {
+    "name": "hello"
+  },
+  "spec": {
+    "serviceName": "hello",
+    "replicas": 1,
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "hello"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "hello",
+            "image": "hello/hello-impl",
+            "imagePullPolicy": "Always",
+            "resources": {
+              "requests": {
+                "memory": "512Mi"
+              }
+            },
+            "ports": [
+              {
+                "containerPort": 9000,
+                "name": "http-lagom-api"
+              },
+              {
+                "containerPort": 2551,
+                "name": "akka-remote"
+              }
+            ],
+            "env": [
+	          {
+                "name": "APPLICATION_SECRET",
+                "value": "ATTENTION_BE_SURE_TO_CHANGE_ME!!!!"
+              },
+              {
+                "name": "KAFKA_SERVICE_NAME",
+                "value": "kafka-hs"
+              },
+              {
+                "name": "CASSANDRA_SERVICE_NAME",
+                "value": "_native._tcp.cassandra.default.svc.cluster.local"
+              },
+              {
+                "name": "HELLO_BIND_PORT",
+                "value": "9000"
+              },
+              {
+                "name": "HELLO_BIND_IP",
+                "value": "0.0.0.0"
+              },
+              {
+                "name": "AKKA_REMOTING_PORT",
+                "value": "2551"
+              },
+              {
+                "name": "AKKA_REMOTING_BIND_PORT",
+                "value": "2551"
+              },
+              {
+                "name": "AKKA_REMOTING_HOST",
+                "value": "$HOSTNAME.hello.default.svc.cluster.local"
+              },
+              {
+                "name": "AKKA_REMOTING_BIND_HOST",
+                "value": "$HOSTNAME.hello.default.svc.cluster.local"
+              },
+              {
+                "name": "AKKA_SEED_NODES",
+                "value": "hello-0.hello.default.svc.cluster.local:2551,hello-1.hello.default.svc.cluster.local:2551,hello-2.hello.default.svc.cluster.local:2551"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -8,14 +8,13 @@ import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 import com.example.hello.api.HelloService
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
+import com.lightbend.lagom.scaladsl.dns.DnsServiceLocatorComponents
 import com.softwaremill.macwire._
 
 class HelloLoader extends LagomApplicationLoader {
 
   override def load(context: LagomApplicationContext): LagomApplication =
-    new HelloApplication(context) {
-      override def serviceLocator: ServiceLocator = NoServiceLocator
-    }
+    new HelloApplication(context) with DnsServiceLocatorComponents
 
   override def loadDevMode(context: LagomApplicationContext): LagomApplication =
     new HelloApplication(context) with LagomDevModeComponents
