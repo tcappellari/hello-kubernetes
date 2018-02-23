@@ -41,14 +41,14 @@ The command below will create the resources, wait for Zookeeper and then Kafka t
 
 Zookeeper
 ```
-kubectl create -f deploy/kubernetes/resources/kafka && \
+kubectl create -f deploy/kubernetes/resources/zookeeper && \
 deploy/kubernetes/scripts/kubectl-wait-for-pods && \
 kubectl get all
 ```
 
 Kafka
 ```
-kubectl create -f deploy/kubernetes/resources/zookeeper && \
+kubectl create -f deploy/kubernetes/resources/kafka && \
 deploy/kubernetes/scripts/kubectl-wait-for-pods && \
 kubectl get all
 ```
