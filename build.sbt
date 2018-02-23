@@ -39,7 +39,6 @@ lazy val `hello-impl` = (project in file("hello-impl"))
         case c @ Cmd("FROM", _) => Seq(c, ExecCmd("RUN", "/bin/sh", "-c", "apk add --no-cache bash && ln -sf /bin/bash /bin/sh"))
         case v => Seq(v)
       },
-    unmanagedResourceDirectories in Compile += sourceDirectory.value / "src" / "main" / "kubernetes-resources",
     resolvers += bintrayRepo("hajile", "maven"),
     resolvers += bintrayRepo("hseeberger", "maven"),
     libraryDependencies ++= Seq(

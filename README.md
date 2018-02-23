@@ -9,8 +9,8 @@ The aim of the project is to supply a basic project that run a Lagom-based syste
 
 Warning
 -------------------------------------------------
-The current version doesn't work.
-The Hello service doesn't communicate with Cassandra.
+The current version doesn't work correctly.
+Hello service is unable to locate Kafka service. 
 
 
 Setting up Minikube Kubernetes Cluster
@@ -33,6 +33,24 @@ The command below will create the resources, wait for Cassandra to start up, and
 kubectl create -f deploy/kubernetes/resources/cassandra && \
 deploy/kubernetes/scripts/kubectl-wait-for-pods && \
 kubectl exec cassandra-0 -- nodetool status
+```
+
+Deploy Kafka (and Zookeeper)
+-------------------------------------------------
+The command below will create the resources, wait for Zookeeper and then Kafka to start up, and show you its status.
+
+Zookeeper
+```
+kubectl create -f deploy/kubernetes/resources/kafka && \
+deploy/kubernetes/scripts/kubectl-wait-for-pods && \
+kubectl get all
+```
+
+Kafka
+```
+kubectl create -f deploy/kubernetes/resources/zookeeper && \
+deploy/kubernetes/scripts/kubectl-wait-for-pods && \
+kubectl get all
 ```
 
 
