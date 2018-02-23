@@ -41,7 +41,7 @@
               },
               {
                 "name": "KAFKA_SERVICE_NAME",
-                "value": "kafka-hs"
+                "value": "_server._tcp.kafka-hs.default.svc.cluster.local"
               },
               {
                 "name": "CASSANDRA_SERVICE_NAME",

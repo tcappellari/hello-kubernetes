@@ -7,11 +7,6 @@ https://developer.lightbend.com/guides/lagom-kubernetes-k8s-deploy-microservices
 
 The aim of the project is to supply a basic project that run a Lagom-based system to Kubernetes.
 
-Warning
--------------------------------------------------
-The current version doesn't work correctly.
-Hello service is unable to locate Kafka service. 
-
 
 Setting up Minikube Kubernetes Cluster
 -------------------------------------------------

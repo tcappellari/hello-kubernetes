@@ -1,16 +1,28 @@
 package com.example.hello.impl
 
+import akka.Done
+import akka.stream.scaladsl.Flow
 import com.example.hello.api
-import com.example.hello.api.{HelloService}
+import com.example.hello.api.HelloService
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.api.broker.Topic
 import com.lightbend.lagom.scaladsl.broker.TopicProducer
 import com.lightbend.lagom.scaladsl.persistence.{EventStreamElement, PersistentEntityRegistry}
+import org.slf4j.{Logger, LoggerFactory}
 
 /**
   * Implementation of the HelloService.
   */
-class HelloServiceImpl(persistentEntityRegistry: PersistentEntityRegistry) extends HelloService {
+class HelloServiceImpl(helloService: HelloService,
+                       persistentEntityRegistry: PersistentEntityRegistry) extends HelloService {
+
+  private final val log: Logger =
+    LoggerFactory.getLogger(classOf[HelloServiceImpl])
+
+  helloService.greetingsTopic().subscribe.atLeastOnce(Flow[api.GreetingMessageChanged].map { msg =>
+    log.info(s"Message: ${msg.message}")
+    Done
+  })
 
   override def hello(id: String) = ServiceCall { _ =>
     // Look up the Hello entity for the given ID.
